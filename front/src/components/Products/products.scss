@@ -1,0 +1,30 @@
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  &-title {
+    display: flex;
+    align-items: center;
+    img {
+      width: 100px;
+      height: auto;
+    }
+  }
+  .product {
+    max-width: 300px;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    .card-body {
+      min-height: 170px;
+    }
+    img {
+      width: 100%;
+      max-height: 200px;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}

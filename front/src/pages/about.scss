@@ -1,0 +1,28 @@
+.about {
+  img {
+    text-align: center;
+    height: 400px;
+  }
+  &-title {
+    color: #1f2949;
+    font-size: 40px;
+  }
+
+  .line {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(128, 128, 128, 0.214);
+    margin: 20px 0;
+  }
+  &-info {
+    h5 {
+      color: #1f2949;
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+    p {
+      color: #3e4143;
+      font-size: 18px;
+    }
+  }
+}

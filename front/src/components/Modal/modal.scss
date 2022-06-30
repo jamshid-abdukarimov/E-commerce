@@ -1,0 +1,21 @@
+.img-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  max-height: 100vh;
+  background: rgba(0, 0, 0, 0.355);
+  z-index: 10 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: auto;
+    max-width: 80%;
+    object-position: center;
+    object-fit: cover;
+    height: 80%;
+  }
+}

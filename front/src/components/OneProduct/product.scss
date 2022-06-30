@@ -1,0 +1,12 @@
+.product {
+  img {
+    cursor: pointer;
+  }
+  &-images {
+    img {
+      width: 24%;
+      object-position: center;
+      object-fit: cover;
+    }
+  }
+}
