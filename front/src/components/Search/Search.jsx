@@ -29,7 +29,7 @@ const SearchBlock = () => {
   };
 
   const getProducts = async (query) => {
-    query ? (query = query) : (query = searchValue);
+    query = query ? query : searchValue;
     await axiosProducts
       .get(
         `/product?name=${
