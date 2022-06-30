@@ -32,9 +32,7 @@ const SearchBlock = () => {
     query = query ? query : searchValue;
     await axiosProducts
       .get(
-        `/product?name=${
-          query || searchValue
-        }&category=${category}&limit=${limit}&offset=${offset}`
+        `/product?name=${query}&category=${category}&limit=${limit}&offset=${offset}`
       )
       .then(({ data }) => {
         dispatch(getProductsAction(data.products));
@@ -108,12 +106,13 @@ const SearchBlock = () => {
           <input
             value={searchValue}
             onChange={(e) => {
+              console.log(e.target.value);
               dispatch(setSearchAction(e.target.value));
               dispatch(setCurrentPageAction(1));
               debouncedSearch(e.target.value);
             }}
             placeholder="Search..."
-            type="search"
+            type="text"
             className="form-control rounded-3 ps-5"
           />
           <i className="fas fa-search search-icon"></i>

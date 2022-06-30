@@ -19,9 +19,15 @@ const Products = () => {
         </div>
       </div>
       <div className="products justify-content-center justify-content-sm-start">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {products.length ? (
+          products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        ) : (
+          <h3 className="text-center w-100 text-danger">
+            Products is not found
+          </h3>
+        )}
       </div>
     </div>
   );
