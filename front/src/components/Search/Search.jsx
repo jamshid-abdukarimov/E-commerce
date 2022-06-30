@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosProducts } from "../../api/api";
-import { useCallback, useRef } from "react";
 import "./search.scss";
 import {
   getCategoriesAction,
@@ -28,11 +27,10 @@ const SearchBlock = () => {
       .then(({ data }) => dispatch(getCategoriesAction(data)));
   };
 
-  const getProducts = async (query) => {
-    query = query ? query : searchValue;
+  const getProducts = async () => {
     await axiosProducts
       .get(
-        `/product?name=${query}&category=${category}&limit=${limit}&offset=${offset}`
+        `/product?name=${searchValue}&category=${category}&limit=${limit}&offset=${offset}`
       )
       .then(({ data }) => {
         dispatch(getProductsAction(data.products));
@@ -40,28 +38,13 @@ const SearchBlock = () => {
       });
   };
 
+  useEffect(() => getProducts(), [searchValue, category]);
+
   useEffect(() => {
     getCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function useDebounce(callback, delay) {
-    const timer = useRef();
-    const debouncedCallback = useCallback(
-      (...args) => {
-        if (timer.current) {
-          clearTimeout(timer.current);
-        }
-        timer.current = setTimeout(() => {
-          callback(...args);
-        }, delay);
-      },
-      [callback, delay]
-    );
-
-    return debouncedCallback;
-  }
-  const debouncedSearch = useDebounce(getProducts, 500);
   const limits = [5, 10, 15, 20];
   return (
     <div className="my-4 d-flex justify-content-end row">
@@ -88,7 +71,6 @@ const SearchBlock = () => {
             onChange={(e) => {
               dispatch(setCategoryAction(e.target.value));
               dispatch(setCurrentPageAction(1));
-              getProducts();
             }}
             className="form-select"
           >
@@ -106,10 +88,8 @@ const SearchBlock = () => {
           <input
             value={searchValue}
             onChange={(e) => {
-              console.log(e.target.value);
               dispatch(setSearchAction(e.target.value));
               dispatch(setCurrentPageAction(1));
-              debouncedSearch(e.target.value);
             }}
             placeholder="Search..."
             type="text"
