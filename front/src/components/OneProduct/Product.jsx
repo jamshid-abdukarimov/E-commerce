@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { axiosProducts } from "../../api/api";
+import { getProduct } from "../../api/productsApi";
 import {
   getOneProductAction,
   showModalAction,
@@ -12,20 +12,15 @@ import "./product.scss";
 
 const Product = () => {
   const dispatch = useDispatch();
+  const product = useSelector((state) => state.products.product);
   const { id } = useParams();
-  const getProduct = async () => {
-    await axiosProducts
-      .get(`/product/${id}`)
-      .then(({ data }) => dispatch(getOneProductAction(data)));
-  };
-
   useEffect(
-    () => getProduct(),
+    () =>
+      getProduct(id).then(({ data }) => dispatch(getOneProductAction(data))),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
-  const product = useSelector((state) => state.products.product);
   return (
     <div>
       <Header />

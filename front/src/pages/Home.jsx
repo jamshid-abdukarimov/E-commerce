@@ -4,7 +4,7 @@ import Header from "../components/Header/Header";
 import Products from "../components/Products/Products";
 import { useDispatch, useSelector } from "react-redux";
 import SearchBlock from "../components/Search/Search";
-import { axiosProducts } from "../api/api";
+import { getProducts } from "../api/productsApi";
 import Pagination from "../components/Pagination/Pagination";
 import {
   getProductsAction,
@@ -19,21 +19,13 @@ const Home = () => {
   const currentPage = useSelector((state) => state.products.currentPage);
   const limit = useSelector((state) => state.products.limit);
   const offset = (currentPage - 1) * limit;
-
   const pagesCount = total && Math.ceil(total / limit);
-  const getProducts = async () => {
-    await axiosProducts
-      .get(
-        `/product?name=${searchValue}&category=${category}&limit=${limit}&offset=${offset}`
-      )
-      .then(({ data }) => {
-        dispatch(getProductsAction(data.products));
-        dispatch(getTotalAction(data.count));
-      });
-  };
 
   useEffect(() => {
-    getProducts();
+    getProducts(searchValue, category, limit, offset).then(({ data }) => {
+      dispatch(getProductsAction(data.products));
+      dispatch(getTotalAction(data.count));
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, offset, currentPage, limit]);
 

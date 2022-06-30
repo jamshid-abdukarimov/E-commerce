@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosProducts } from "../../api/api";
+import { getCategories, getProducts } from "../../api/productsApi";
 import "./search.scss";
 import {
   getCategoriesAction,
@@ -21,27 +21,18 @@ const SearchBlock = () => {
   const limit = useSelector((state) => state.products.limit);
   const offset = (currentPage - 1) * limit;
 
-  const getCategories = async () => {
-    await axiosProducts
-      .get("/category")
-      .then(({ data }) => dispatch(getCategoriesAction(data)));
-  };
-
-  const getProducts = async () => {
-    await axiosProducts
-      .get(
-        `/product?name=${searchValue}&category=${category}&limit=${limit}&offset=${offset}`
-      )
-      .then(({ data }) => {
+  useEffect(
+    () =>
+      getProducts(searchValue, category, limit, offset).then(({ data }) => {
         dispatch(getProductsAction(data.products));
         dispatch(getTotalAction(data.count));
-      });
-  };
-
-  useEffect(() => getProducts(), [searchValue, category]);
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchValue, category]
+  );
 
   useEffect(() => {
-    getCategories();
+    getCategories().then(({ data }) => dispatch(getCategoriesAction(data)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
