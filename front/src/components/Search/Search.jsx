@@ -12,15 +12,13 @@ const SearchBlock = () => {
   const offset = (currentPage - 1) * limit;
   const limits = [5, 10, 15, 20];
 
-  useEffect(
-    () =>
-      getProducts(searchValue, category, limit, offset).then(({ data }) => {
-        dispatch(productsActions.getProductsAction(data.products));
-        dispatch(productsActions.getTotalAction(data.count));
-      }),
+  useEffect(() => {
+    getProducts(searchValue, category, limit, offset).then(({ data }) => {
+      dispatch(productsActions.getProductsAction(data.products));
+      dispatch(productsActions.getTotalAction(data.count));
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [searchValue, category]
-  );
+  }, [searchValue, category]);
 
   useEffect(() => {
     getCategories().then(({ data }) =>
@@ -29,16 +27,28 @@ const SearchBlock = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const setLimit = (e) => {
+    dispatch(productsActions.setLimitAction(e.target.value));
+    dispatch(productsActions.setCurrentPageAction(1));
+  };
+
+  const setCategory = (e) => {
+    dispatch(productsActions.setCategoryAction(e.target.value));
+    dispatch(productsActions.setCurrentPageAction(1));
+  };
+
+  const searching = (e) => {
+    dispatch(productsActions.setSearchAction(e.target.value));
+    dispatch(productsActions.setCurrentPageAction(1));
+  };
+
   return (
     <div className="my-4 d-flex justify-content-end row">
       <div className="col-md-6 d-flex">
         <div className="form-group">
           <select
-            onChange={(e) => {
-              dispatch(productsActions.setLimitAction(e.target.value));
-              dispatch(productsActions.setCurrentPageAction(1));
-            }}
             defaultValue={limit}
+            onChange={setLimit}
             className="form-select"
           >
             {limits.map((limit) => (
@@ -51,10 +61,7 @@ const SearchBlock = () => {
         <div className="form-group ms-2">
           <select
             defaultValue={category}
-            onChange={(e) => {
-              dispatch(productsActions.setCategoryAction(e.target.value));
-              dispatch(productsActions.setCurrentPageAction(1));
-            }}
+            onChange={setCategory}
             className="form-select"
           >
             <option value="">All products</option>
@@ -70,10 +77,7 @@ const SearchBlock = () => {
         <div className="input-group w-100 position-relative">
           <input
             value={searchValue}
-            onChange={(e) => {
-              dispatch(productsActions.setSearchAction(e.target.value));
-              dispatch(productsActions.setCurrentPageAction(1));
-            }}
+            onChange={searching}
             placeholder="Search..."
             type="text"
             className="form-control rounded-3 ps-5"
