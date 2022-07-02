@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories, getProducts } from "../../api/productsApi";
 import "./search.scss";
-import * as products from "../../redux/reducers/productsReducer";
+import * as productsActions from "../../redux/reducers/productsReducer";
 
 const SearchBlock = () => {
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ const SearchBlock = () => {
   useEffect(
     () =>
       getProducts(searchValue, category, limit, offset).then(({ data }) => {
-        dispatch(products.getProductsAction(data.products));
-        dispatch(products.getTotalAction(data.count));
+        dispatch(productsActions.getProductsAction(data.products));
+        dispatch(productsActions.getTotalAction(data.count));
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchValue, category]
@@ -24,7 +24,7 @@ const SearchBlock = () => {
 
   useEffect(() => {
     getCategories().then(({ data }) =>
-      dispatch(products.getCategoriesAction(data))
+      dispatch(productsActions.getCategoriesAction(data))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -35,8 +35,8 @@ const SearchBlock = () => {
         <div className="form-group">
           <select
             onChange={(e) => {
-              dispatch(products.setLimitAction(e.target.value));
-              dispatch(products.setCurrentPageAction(1));
+              dispatch(productsActions.setLimitAction(e.target.value));
+              dispatch(productsActions.setCurrentPageAction(1));
             }}
             defaultValue={limit}
             className="form-select"
@@ -52,8 +52,8 @@ const SearchBlock = () => {
           <select
             defaultValue={category}
             onChange={(e) => {
-              dispatch(products.setCategoryAction(e.target.value));
-              dispatch(products.setCurrentPageAction(1));
+              dispatch(productsActions.setCategoryAction(e.target.value));
+              dispatch(productsActions.setCurrentPageAction(1));
             }}
             className="form-select"
           >
@@ -71,8 +71,8 @@ const SearchBlock = () => {
           <input
             value={searchValue}
             onChange={(e) => {
-              dispatch(products.setSearchAction(e.target.value));
-              dispatch(products.setCurrentPageAction(1));
+              dispatch(productsActions.setSearchAction(e.target.value));
+              dispatch(productsActions.setCurrentPageAction(1));
             }}
             placeholder="Search..."
             type="text"

@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import * as Components from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../api/productsApi";
-import {
-  getProductsAction,
-  getTotalAction,
-} from "../redux/reducers/productsReducer";
+import * as productsActions from "../redux/reducers/productsReducer";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -17,8 +14,8 @@ const Home = () => {
 
   useEffect(() => {
     getProducts(searchValue, category, limit, offset).then(({ data }) => {
-      dispatch(getProductsAction(data.products));
-      dispatch(getTotalAction(data.count));
+      dispatch(productsActions.getProductsAction(data.products));
+      dispatch(productsActions.getTotalAction(data.count));
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, offset, currentPage, limit]);

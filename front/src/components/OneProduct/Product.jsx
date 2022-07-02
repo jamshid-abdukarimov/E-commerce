@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../../api/productsApi";
-import * as porducts from "../../redux/reducers/productsReducer";
+import * as productsActions from "../../redux/reducers/productsReducer";
 import { Header } from "../";
 import "./product.scss";
 
@@ -14,7 +14,7 @@ const Product = () => {
   useEffect(
     () =>
       getProduct(id).then(({ data }) =>
-        dispatch(porducts.getOneProductAction(data))
+        dispatch(productsActions.getOneProductAction(data))
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -29,7 +29,7 @@ const Product = () => {
             <div className="col-md-6 text-center">
               <img
                 onClick={(e) => {
-                  dispatch(porducts.showModalAction(e.target.src));
+                  dispatch(productsActions.showModalAction(e.target.src));
                 }}
                 className="w-75 mb-2"
                 src={product.thumbnail}
@@ -39,7 +39,7 @@ const Product = () => {
                 {product.images.map((image, index) => (
                   <img
                     onClick={(e) => {
-                      dispatch(porducts.showModalAction(e.target.src));
+                      dispatch(productsActions.showModalAction(e.target.src));
                     }}
                     className="img-thumbnail"
                     src={image}
