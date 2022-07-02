@@ -27,7 +27,7 @@ const Products = () => {
           ))
         ) : (
           <h3 className="text-center w-100 text-danger">
-            Products is not found
+            Product is not found!
           </h3>
         )}
       </div>
