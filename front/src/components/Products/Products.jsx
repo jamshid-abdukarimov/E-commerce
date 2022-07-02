@@ -5,16 +5,18 @@ import { useSelector } from "react-redux";
 import { ProductCard } from "../";
 
 const Products = () => {
-  const { products } = useSelector((state) => state.products);
+  const { products, category } = useSelector((state) => state.products);
   return (
     <div className="products-wrapper py-4">
       <div className="products-title mb-3 d-flex">
         <img src={png} alt="png" />
         <div className="ms-2">
-          <h3>Mahsulotlar</h3>
+          <h3 className="text-capitalize">
+            {category ? category : "All Products"}
+          </h3>
           <p>
-            Bizning internet magazinimiz bilan siz o'z <br /> mahsulotlaringizni
-            tez va arzon olishingiz mumkin.
+            You can get any products quickly
+            <br /> and cheaply in our online magazine.
           </p>
         </div>
       </div>
