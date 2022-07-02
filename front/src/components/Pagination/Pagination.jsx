@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPageAction } from "../../redux/reducers/productsReducer";
 
 const Pagination = ({ pagesCount }) => {
-  const currentPage = useSelector((state) => state.products.currentPage);
+  const { currentPage } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const pages = [];
   if (!pagesCount) {

@@ -1,15 +1,12 @@
 import React from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Product from "./components/OneProduct/Product";
-import Modal from "./components/Modal/Modal";
+import { Home, About } from "./pages";
+import { Product, Modal } from "./components";
 import { useSelector } from "react-redux";
 
 function App() {
-  const modalWindow = useSelector((state) => state.products.modalWindow);
-  const overflow = useSelector((state) => state.products.overflow);
+  const { modalWindow, overflow } = useSelector((state) => state.products);
   if (overflow) {
     document.body.style.overflow = "hidden";
   } else {

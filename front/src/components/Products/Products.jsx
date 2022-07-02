@@ -2,10 +2,10 @@ import React from "react";
 import "./products.scss";
 import png from "../../assets/images/products.png";
 import { useSelector } from "react-redux";
-import ProductCard from "../ProductCard/ProductCard";
+import { ProductCard } from "../";
 
 const Products = () => {
-  const products = useSelector((state) => state.products.products);
+  const { products } = useSelector((state) => state.products);
   return (
     <div className="products-wrapper py-4">
       <div className="products-title mb-3 d-flex">

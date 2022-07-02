@@ -6,12 +6,15 @@ import logo from "../../assets/images/logo.png";
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg justify-content-between">
-      <div className="header_logo col-9 col-md-6 flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-start text-center text-sm-start">
+      <NavLink
+        to="/"
+        className="header_logo col-9 col-md-6 flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-start text-center text-sm-start"
+      >
         <img src={logo} alt="logo png" />
         <h4>
           Eng sifatli mahsulotlar <br /> eng yaxshi narxlarda
         </h4>
-      </div>
+      </NavLink>
       <button
         className="navbar-toggler shadow-none"
         type="button"

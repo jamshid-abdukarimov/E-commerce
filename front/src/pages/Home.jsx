@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
-import Products from "../components/Products/Products";
+import * as Components from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import SearchBlock from "../components/Search/Search";
 import { getProducts } from "../api/productsApi";
-import Pagination from "../components/Pagination/Pagination";
 import {
   getProductsAction,
   getTotalAction,
@@ -13,11 +9,9 @@ import {
 
 const Home = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state) => state.products.category);
-  const searchValue = useSelector((state) => state.products.searchValue);
-  const total = useSelector((state) => state.products.total);
-  const currentPage = useSelector((state) => state.products.currentPage);
-  const limit = useSelector((state) => state.products.limit);
+  const { total, category, searchValue, currentPage, limit } = useSelector(
+    (state) => state.products
+  );
   const offset = (currentPage - 1) * limit;
   const pagesCount = total && Math.ceil(total / limit);
 
@@ -31,13 +25,13 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <Components.Header />
       <div className="container">
-        <SearchBlock />
-        <Products />
-        <Pagination pagesCount={pagesCount} />
+        <Components.SearchBlock />
+        <Components.Products />
+        <Components.Pagination pagesCount={pagesCount} />
       </div>
-      <Footer />
+      <Components.Footer />
     </div>
   );
 };
