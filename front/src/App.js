@@ -7,11 +7,10 @@ import { useSelector } from "react-redux";
 
 function App() {
   const { modalWindow, overflow } = useSelector((state) => state.products);
-  if (overflow) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
+  overflow
+    ? (document.body.style.overflow = "hidden")
+    : (document.body.style.overflow = "auto");
+
   return (
     <>
       <Switch>
